@@ -162,6 +162,8 @@ function spin(event){
 
 function moveKey(event){
   const boundingRect = key.getBoundingClientRect();
+  const keyholeboundingRect = mask.getBoundingClientRect();
+  const keyholeTarget = keyholeboundingRect.left;
   const center_x = boundingRect.left + boundingRect.width / 2;
   const center_y = boundingRect.top + boundingRect.height / 2;
 
@@ -169,7 +171,7 @@ function moveKey(event){
 
   let pos = mouseX - mouseKeyDist;
 
-  if (pos<460){
+  if (pos - boundingRect.width/2<keyholeTarget){
     keyIsIn = true;
     key.style.display = 'none';
     mask.style.display = 'none';
