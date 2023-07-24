@@ -20,6 +20,8 @@ let keyIsIn = false;
 
 let mouseKeyDist = 0;
 
+let maxAngle = 45;
+
 const circle = new CircularProgressBar("pie");
 circle.initial();
 
@@ -143,7 +145,7 @@ key.ondragstart = function() {
 };
 
 function spin(event){
-  calculateAngle(event.clientX, event.clientY, spinningImage);
+  calculateAngle(event.touches[0].clientX, event.touches[0].clientY, spinningImage);
   dialAngle(functionalAngle);
   keyholeAngle(functionalAngle);
 
@@ -170,7 +172,7 @@ function moveKey(event){
   const center_x = boundingRect.left + boundingRect.width / 2;
   const center_y = boundingRect.top + boundingRect.height / 2;
 
-  let mouseX = event.clientX;
+  let mouseX = event.touches[0].clientX;
 
   let pos = mouseX - mouseKeyDist;
 
@@ -203,7 +205,7 @@ key.ontouchstart = function(event){
     const boundingRect = key.getBoundingClientRect();
     const center_x = boundingRect.left + boundingRect.width / 2;
 
-    mouseKeyDist =  event.clientX - center_x;
+    mouseKeyDist =  event.touches[0].clientX - center_x;
 
     console.log('touchstart registered');
     window.addEventListener('touchmove', moveKey);
@@ -222,4 +224,40 @@ window.ontouchend = function(event) {
   window.removeEventListener('touchmove', moveKey);
   key.onmouseup = null;
 };
+
+
+dial.addEventListener("touchstart", function(event){
+
+  if (dialIsOn == false){
+    window.addEventListener('touchmove', spin);
+    console.log("yeet2");
+  }
+  
+
+});
+
+key.addEventListener("touchstart", function(event){
+
+  const boundingRect = key.getBoundingClientRect();
+  const center_x = boundingRect.left + boundingRect.width / 2;
+
+  mouseKeyDist =  event.touches[0].clientX - center_x;
+
+  console.log('touchstart registered');
+  window.addEventListener('touchmove', moveKey);
+
+
+});
+
+window.addEventListener("touchend", function(event) {
+  if (dialIsOn == false){
+  window.removeEventListener('touchmove', spin);
+  console.log("yeet");
+  spinningImage.onmouseup = null;
+  reset();
+  }
+
+  window.removeEventListener('touchmove', moveKey);
+  key.onmouseup = null;
+});
 
