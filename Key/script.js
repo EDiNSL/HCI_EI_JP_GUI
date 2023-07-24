@@ -185,7 +185,7 @@ function moveKey(event){
 
 }
 
-dial.onmousedown = function(event){
+dial.ontouchstart = function(event){
 
   if (dialIsOn == false){
     window.addEventListener('mousemove', spin);
@@ -195,7 +195,7 @@ dial.onmousedown = function(event){
 
 };
 
-key.onmousedown = function(event){
+key.ontouchstart = function(event){
 
     const boundingRect = key.getBoundingClientRect();
     const center_x = boundingRect.left + boundingRect.width / 2;
@@ -206,7 +206,7 @@ key.onmousedown = function(event){
 
 };
 
-window.onmouseup = function(event) {
+window.ontouchend = function(event) {
   if (dialIsOn == false){
   window.removeEventListener('mousemove', spin);
   console.log("yeet");
