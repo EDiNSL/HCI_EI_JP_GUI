@@ -150,7 +150,7 @@ function spin(event){
   if (functionalAngle>268){
     
     dialIsOn = true;
-    window.removeEventListener('mousemove', spin);
+    window.removeEventListener('touchmove', spin);
     spinningImage.onmouseup = null;
     console.log("y");
 
@@ -161,6 +161,9 @@ function spin(event){
 }
 
 function moveKey(event){
+
+  console.log('touchmove registered');
+
   const boundingRect = key.getBoundingClientRect();
   const keyholeboundingRect = mask.getBoundingClientRect();
   const keyholeTarget = keyholeboundingRect.left;
@@ -188,7 +191,7 @@ function moveKey(event){
 dial.ontouchstart = function(event){
 
   if (dialIsOn == false){
-    window.addEventListener('mousemove', spin);
+    window.addEventListener('touchmove', spin);
     console.log("yeet2");
   }
   
@@ -201,20 +204,22 @@ key.ontouchstart = function(event){
     const center_x = boundingRect.left + boundingRect.width / 2;
 
     mouseKeyDist =  event.clientX - center_x;
-    window.addEventListener('mousemove', moveKey);
+
+    console.log('touchstart registered');
+    window.addEventListener('touchmove', moveKey);
   
 
 };
 
 window.ontouchend = function(event) {
   if (dialIsOn == false){
-  window.removeEventListener('mousemove', spin);
+  window.removeEventListener('touchmove', spin);
   console.log("yeet");
   spinningImage.onmouseup = null;
   reset();
   }
 
-  window.removeEventListener('mousemove', moveKey);
+  window.removeEventListener('touchmove', moveKey);
   key.onmouseup = null;
 };
 
