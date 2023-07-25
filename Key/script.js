@@ -20,7 +20,7 @@ let keyIsIn = false;
 
 let mouseKeyDist = 0;
 
-let maxAngle = 45;
+let maxAngle = 90;
 
 const circle = new CircularProgressBar("pie");
 circle.initial();
@@ -33,16 +33,16 @@ let options = {
 circle.animationTo(options);
 
 function angleLimit(){
-  if (currentAngle>270){
+  if (currentAngle>maxAngle){
     if (previousFunctionalAngle == 0){
       functionalAngle = 0;
-    } else if (previousFunctionalAngle == 270){
-      functionalAngle = 270;
+    } else if (previousFunctionalAngle == maxAngle){
+      functionalAngle = maxAngle;
     }
   } else {
-    if (previousFunctionalAngle == 270){
+    if (previousFunctionalAngle == maxAngle){
       if (previousFunctionalAngle - currentAngle >snapThres){
-        functionalAngle = 270;
+        functionalAngle = maxAngle;
       } else {
         functionalAngle  = currentAngle;
       }
@@ -149,7 +149,7 @@ function spin(event){
   dialAngle(functionalAngle);
   keyholeAngle(functionalAngle);
 
-  if (functionalAngle>268){
+  if (functionalAngle>maxAngle-2){
     
     dialIsOn = true;
     window.removeEventListener('touchmove', spin);
